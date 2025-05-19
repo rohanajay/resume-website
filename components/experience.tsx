@@ -9,13 +9,15 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 
 export default function Experience() {
-  const [expandedId, setExpandedId] = useState<number | null>(null)
+  const [clickedId, setClickedId] = useState<number | null>(null)
   const [hoveredId, setHoveredId] = useState<number | null>(null)
 
   const toggleExpand = (id: number, e: React.MouseEvent) => {
     // Stop event propagation to prevent card click from interfering
     e.stopPropagation()
-    setExpandedId(expandedId === id ? null : id)
+
+    // If already clicked, unclick it; otherwise set it as clicked
+    setClickedId(clickedId === id ? null : id)
   }
 
   const handleMouseEnter = (id: number) => {
@@ -26,7 +28,11 @@ export default function Experience() {
     setHoveredId(null)
   }
 
-  const isExpanded = (id: number) => expandedId === id
+  // Check both clickedId and hoveredId to determine if a card should be expanded
+  const isExpanded = (id: number) => clickedId === id || hoveredId === id
+
+  // Check if the item is specifically clicked (for styling purposes)
+  const isClicked = (id: number) => clickedId === id
 
   const experiences = [
     {
@@ -66,7 +72,7 @@ export default function Experience() {
       period: "January 2021 – June 2024",
       progression: [
         {
-          role: "Senior Analyst, Corporate Treasury Division – CTO Business Intelligence and Data Solutions",
+          role: "Senior Data Analyst, Corporate Treasury Division – CTO Business Intelligence and Data Solutions",
           period: "January 2023 – June 2024",
           highlights: [
             "Optimized and fine-tuned Machine Learning models for fraud detection on Actimize and sanctions screening on Fircosoft, enhancing model accuracy and operational efficiency.",
@@ -76,7 +82,7 @@ export default function Experience() {
           ],
         },
         {
-          role: "Junior Analyst",
+          role: "Junior Data Analyst",
           period: "June 2021 – December 2022",
           highlights: [
             "Leveraged Alteryx to automate manual reporting and implemented ETL data strategy to provide access to previously unavailable data serving as a key enabler to future BI initiatives",
@@ -174,7 +180,9 @@ export default function Experience() {
                             </div>
                           </div>
                           <button
-                            className="p-2 -m-2 cursor-pointer touch-manipulation z-30 rounded-full hover:bg-background/50 transition-colors focus:outline-none focus:ring-2 focus:ring-primary/50"
+                            className={`p-2 -m-2 cursor-pointer touch-manipulation z-30 rounded-full hover:bg-background/50 transition-colors focus:outline-none ${
+                              isClicked(exp.id) ? "ring-2 ring-primary/50" : ""
+                            }`}
                             onClick={(e) => toggleExpand(exp.id, e)}
                             aria-label={isExpanded(exp.id) ? "Collapse" : "Expand"}
                             type="button"

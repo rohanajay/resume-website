@@ -21,13 +21,15 @@ import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 
 export default function Projects() {
-  const [expandedId, setExpandedId] = useState<number | null>(null)
+  const [clickedId, setClickedId] = useState<number | null>(null)
   const [hoveredId, setHoveredId] = useState<number | null>(null)
 
   const toggleExpand = (id: number, e: React.MouseEvent) => {
     // Stop event propagation to prevent card click from interfering
     e.stopPropagation()
-    setExpandedId(expandedId === id ? null : id)
+
+    // If already clicked, unclick it; otherwise set it as clicked
+    setClickedId(clickedId === id ? null : id)
   }
 
   const handleMouseEnter = (id: number) => {
@@ -38,7 +40,11 @@ export default function Projects() {
     setHoveredId(null)
   }
 
-  const isExpanded = (id: number) => expandedId === id
+  // Check both clickedId and hoveredId to determine if a card should be expanded
+  const isExpanded = (id: number) => clickedId === id || hoveredId === id
+
+  // Check if the item is specifically clicked (for styling purposes)
+  const isClicked = (id: number) => clickedId === id
 
   // Function to open GitHub link directly in a new tab
   const openGitHubPaper = (url: string, e: React.MouseEvent) => {
@@ -186,7 +192,9 @@ export default function Projects() {
                         </div>
                       </div>
                       <button
-                        className="p-2 -m-2 cursor-pointer touch-manipulation z-30 rounded-full hover:bg-background/50 transition-colors focus:outline-none focus:ring-2 focus:ring-primary/50"
+                        className={`p-2 -m-2 cursor-pointer touch-manipulation z-30 rounded-full hover:bg-background/50 transition-colors focus:outline-none ${
+                          isClicked(project.id) ? "ring-2 ring-primary/50" : ""
+                        }`}
                         onClick={(e) => toggleExpand(project.id, e)}
                         aria-label={isExpanded(project.id) ? "Collapse" : "Expand"}
                         type="button"

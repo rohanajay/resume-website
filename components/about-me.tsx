@@ -32,7 +32,7 @@ export default function AboutMe() {
               <div className="col-span-2 space-y-4">
                 <div className="flex items-center mb-4">
                   <User className="h-6 w-6 text-primary mr-2" />
-                  <h3 className="text-xl font-semibold">Personal Bio</h3>
+                  <h3 className="text-xl font-semibold">Hello there, I'm Rohan! </h3>
                 </div>
 
                 <p className="text-muted-foreground">
