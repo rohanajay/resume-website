@@ -24,7 +24,9 @@ export default function Projects() {
   const [expandedId, setExpandedId] = useState<number | null>(null)
   const [hoveredId, setHoveredId] = useState<number | null>(null)
 
-  const toggleExpand = (id: number) => {
+  const toggleExpand = (id: number, e: React.MouseEvent) => {
+    // Stop event propagation to prevent card click from interfering
+    e.stopPropagation()
     setExpandedId(expandedId === id ? null : id)
   }
 
@@ -36,7 +38,7 @@ export default function Projects() {
     setHoveredId(null)
   }
 
-  const isExpanded = (id: number) => expandedId === id || hoveredId === id
+  const isExpanded = (id: number) => expandedId === id
 
   // Function to open GitHub link directly in a new tab
   const openGitHubPaper = (url: string, e: React.MouseEvent) => {
@@ -183,19 +185,18 @@ export default function Projects() {
                           <span>{project.period}</span>
                         </div>
                       </div>
-                      <Button
-                        variant="ghost"
-                        size="icon"
-                        onClick={() => toggleExpand(project.id)}
+                      <button
+                        className="p-2 -m-2 cursor-pointer touch-manipulation z-30 rounded-full hover:bg-background/50 transition-colors focus:outline-none focus:ring-2 focus:ring-primary/50"
+                        onClick={(e) => toggleExpand(project.id, e)}
                         aria-label={isExpanded(project.id) ? "Collapse" : "Expand"}
-                        className="text-primary hover:text-primary/80"
+                        type="button"
                       >
                         {isExpanded(project.id) ? (
-                          <ChevronUp className="h-5 w-5 text-primary" />
+                          <ChevronUp className="h-6 w-6 text-primary" />
                         ) : (
-                          <ChevronDown className="h-5 w-5 text-primary" />
+                          <ChevronDown className="h-6 w-6 text-primary" />
                         )}
-                      </Button>
+                      </button>
                     </div>
 
                     <p className="mt-2 text-muted-foreground">{project.summary}</p>
