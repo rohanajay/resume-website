@@ -9,30 +9,18 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 
 export default function Experience() {
-  const [clickedId, setClickedId] = useState<number | null>(null)
-  const [hoveredId, setHoveredId] = useState<number | null>(null)
+  const [expandedId, setExpandedId] = useState<number | null>(null)
 
   const toggleExpand = (id: number, e: React.MouseEvent) => {
     // Stop event propagation to prevent card click from interfering
     e.stopPropagation()
 
-    // If already clicked, unclick it; otherwise set it as clicked
-    setClickedId(clickedId === id ? null : id)
+    // If already expanded, collapse it; otherwise expand it
+    setExpandedId(expandedId === id ? null : id)
   }
 
-  const handleMouseEnter = (id: number) => {
-    setHoveredId(id)
-  }
-
-  const handleMouseLeave = () => {
-    setHoveredId(null)
-  }
-
-  // Check both clickedId and hoveredId to determine if a card should be expanded
-  const isExpanded = (id: number) => clickedId === id || hoveredId === id
-
-  // Check if the item is specifically clicked (for styling purposes)
-  const isClicked = (id: number) => clickedId === id
+  // Check if the item is expanded
+  const isExpanded = (id: number) => expandedId === id
 
   const experiences = [
     {
@@ -119,11 +107,14 @@ export default function Experience() {
 
   return (
     <div>
-      <h2 className="section-heading">PROFESSIONAL EXPERIENCE</h2>
+      <h2 className="section-heading text-center md:text-left">PROFESSIONAL EXPERIENCE</h2>
 
       <div className="relative mt-12">
         {/* Timeline line - only visible on md screens and up */}
         <div className="absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-primary/30 z-0 hidden md:block"></div>
+
+        {/* Mobile timeline line - centered for small screens */}
+        <div className="absolute left-4 top-0 bottom-0 w-0.5 bg-primary/30 z-0 md:hidden"></div>
 
         <motion.div
           variants={container}
@@ -136,7 +127,7 @@ export default function Experience() {
             <motion.div
               key={exp.id}
               variants={item}
-              className={`mb-12 flex justify-center items-center ${
+              className={`mb-12 flex justify-center items-start ${
                 index % 2 === 0 ? "md:justify-end" : "md:justify-start"
               }`}
             >
@@ -144,22 +135,15 @@ export default function Experience() {
               <div className="absolute left-1/2 transform -translate-x-1/2 w-5 h-5 rounded-full bg-primary z-20 hidden md:block"></div>
 
               {/* Mobile timeline dot - only visible on small screens */}
-              <div className="absolute left-0 w-4 h-4 rounded-full bg-primary z-20 md:hidden -ml-2"></div>
-
-              {/* Mobile timeline line - only visible on small screens */}
-              <div className="absolute left-0 top-5 bottom-0 w-0.5 bg-primary/30 z-10 md:hidden -ml-0.5"></div>
+              <div className="absolute left-4 w-4 h-4 rounded-full bg-primary z-20 md:hidden"></div>
 
               {/* Content card */}
-              <div className={`relative w-full md:w-5/12 ${index % 2 === 0 ? "md:mr-8" : "md:ml-8"} pl-6 md:pl-0`}>
-                <Card
-                  className="experience-card overflow-hidden bg-secondary/50 hover:bg-secondary/70 transition-colors duration-300"
-                  onMouseEnter={() => handleMouseEnter(exp.id)}
-                  onMouseLeave={handleMouseLeave}
-                >
-                  <CardContent className="p-6">
+              <div className={`relative w-full md:w-5/12 ${index % 2 === 0 ? "md:mr-8" : "md:ml-8"} pl-12 md:pl-0`}>
+                <Card className="experience-card overflow-hidden bg-secondary/50 hover:bg-secondary/70 transition-colors duration-300">
+                  <CardContent className="p-4 sm:p-6">
                     <div className="flex items-start">
-                      <div className="mr-4 mt-1">
-                        <div className="w-16 h-16 rounded-lg bg-background/70 p-2 flex items-center justify-center">
+                      <div className="mr-3 sm:mr-4 mt-1">
+                        <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-lg bg-background/70 p-2 flex items-center justify-center">
                           <img
                             src={exp.logo || "/placeholder.svg"}
                             alt={exp.company}
@@ -167,32 +151,36 @@ export default function Experience() {
                           />
                         </div>
                       </div>
-                      <div className="flex-1">
+                      <div className="flex-1 min-w-0">
                         <div className="flex justify-between items-start">
-                          <div>
-                            <h3 className="text-xl font-semibold">{exp.company}</h3>
-                            <p className="text-lg text-primary">{exp.position}</p>
-                            <div className="flex items-center mt-2 text-sm text-muted-foreground">
-                              <span>{exp.location}</span>
-                              <span className="mx-2">•</span>
-                              <Calendar className="h-4 w-4 mr-1" />
-                              <span>{exp.period}</span>
+                          <div className="pr-10 sm:pr-12">
+                            <h3 className="text-lg sm:text-xl font-semibold">{exp.company}</h3>
+                            <p className="text-base sm:text-lg text-primary">{exp.position}</p>
+                            <div className="flex flex-wrap items-center mt-2 text-xs sm:text-sm text-muted-foreground">
+                              <span className="mr-2">{exp.location}</span>
+                              <span className="mx-2 hidden sm:inline">•</span>
+                              <div className="flex items-center mt-1 sm:mt-0">
+                                <Calendar className="h-3 w-3 sm:h-4 sm:w-4 mr-1" />
+                                <span>{exp.period}</span>
+                              </div>
                             </div>
                           </div>
-                          <button
-                            className={`p-2 -m-2 cursor-pointer touch-manipulation z-30 rounded-full hover:bg-background/50 transition-colors focus:outline-none ${
-                              isClicked(exp.id) ? "ring-2 ring-primary/50" : ""
-                            }`}
-                            onClick={(e) => toggleExpand(exp.id, e)}
-                            aria-label={isExpanded(exp.id) ? "Collapse" : "Expand"}
-                            type="button"
-                          >
-                            {isExpanded(exp.id) ? (
-                              <ChevronUp className="h-6 w-6 text-primary" />
-                            ) : (
-                              <ChevronDown className="h-6 w-6 text-primary" />
-                            )}
-                          </button>
+                          <div className="absolute right-3 top-3">
+                            <button
+                              className={`w-8 h-8 flex items-center justify-center rounded-full hover:bg-background/50 transition-colors focus:outline-none ${
+                                isExpanded(exp.id) ? "ring-2 ring-primary/50" : ""
+                              }`}
+                              onClick={(e) => toggleExpand(exp.id, e)}
+                              aria-label={isExpanded(exp.id) ? "Collapse" : "Expand"}
+                              type="button"
+                            >
+                              {isExpanded(exp.id) ? (
+                                <ChevronUp className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
+                              ) : (
+                                <ChevronDown className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
+                              )}
+                            </button>
+                          </div>
                         </div>
 
                         <AnimatePresence>
@@ -208,17 +196,17 @@ export default function Experience() {
                                 <div className="space-y-6">
                                   {exp.progression?.map((role, idx) => (
                                     <div key={idx} className="border-l-2 border-primary/30 pl-4">
-                                      <div className="flex items-start justify-between">
-                                        <h4 className="font-semibold text-primary">{role.role}</h4>
-                                        <Badge variant="outline" className="ml-2">
+                                      <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between">
+                                        <h4 className="font-semibold text-primary text-sm sm:text-base">{role.role}</h4>
+                                        <Badge variant="outline" className="mt-1 sm:mt-0 sm:ml-2 inline-flex w-fit">
                                           {role.period}
                                         </Badge>
                                       </div>
                                       <ul className="space-y-2 mt-2">
                                         {role.highlights.map((highlight, hIdx) => (
                                           <li key={hIdx} className="flex items-start">
-                                            <span className="text-primary mr-2">•</span>
-                                            <span className="text-sm">{highlight}</span>
+                                            <span className="text-primary mr-2 flex-shrink-0">•</span>
+                                            <span className="text-xs sm:text-sm">{highlight}</span>
                                           </li>
                                         ))}
                                       </ul>
@@ -229,8 +217,8 @@ export default function Experience() {
                                 <ul className="space-y-2">
                                   {exp.responsibilities?.map((resp, idx) => (
                                     <li key={idx} className="flex items-start">
-                                      <span className="text-primary mr-2">•</span>
-                                      <span>{resp}</span>
+                                      <span className="text-primary mr-2 flex-shrink-0">•</span>
+                                      <span className="text-sm">{resp}</span>
                                     </li>
                                   ))}
                                 </ul>

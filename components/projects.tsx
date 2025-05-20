@@ -15,39 +15,35 @@ import {
   Globe,
   ExternalLink,
   Github,
+  Youtube,
+  Play,
 } from "lucide-react"
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 
 export default function Projects() {
-  const [clickedId, setClickedId] = useState<number | null>(null)
-  const [hoveredId, setHoveredId] = useState<number | null>(null)
+  const [expandedId, setExpandedId] = useState<number | null>(null)
 
   const toggleExpand = (id: number, e: React.MouseEvent) => {
     // Stop event propagation to prevent card click from interfering
     e.stopPropagation()
 
-    // If already clicked, unclick it; otherwise set it as clicked
-    setClickedId(clickedId === id ? null : id)
+    // If already expanded, collapse it; otherwise expand it
+    setExpandedId(expandedId === id ? null : id)
   }
 
-  const handleMouseEnter = (id: number) => {
-    setHoveredId(id)
-  }
-
-  const handleMouseLeave = () => {
-    setHoveredId(null)
-  }
-
-  // Check both clickedId and hoveredId to determine if a card should be expanded
-  const isExpanded = (id: number) => clickedId === id || hoveredId === id
-
-  // Check if the item is specifically clicked (for styling purposes)
-  const isClicked = (id: number) => clickedId === id
+  // Check if the item is expanded
+  const isExpanded = (id: number) => expandedId === id
 
   // Function to open GitHub link directly in a new tab
   const openGitHubPaper = (url: string, e: React.MouseEvent) => {
+    e.preventDefault()
+    window.open(url, "_blank")
+  }
+
+  // Function to open YouTube video in a new tab
+  const openYouTubeVideo = (url: string, e: React.MouseEvent) => {
     e.preventDefault()
     window.open(url, "_blank")
   }
@@ -67,6 +63,7 @@ export default function Projects() {
       ],
       skills: ["LangChain", "Llama 70B", "Agentic AI", "API Integration"],
       githubUrl: "https://github.com/rohanajay/research-papers/blob/main/Automating_B2B_Sales_Using_Agentic_AI.pdf",
+      videoUrl: "https://youtu.be/IkefBKis3eY?si=_7-49BMPvKbsPUjl",
     },
     {
       id: 2,
@@ -83,6 +80,7 @@ export default function Projects() {
       skills: ["Random Forest", "LSTM Time Series", "Clustering", "Inventory Analytics"],
       githubUrl:
         "https://github.com/rohanajay/research-papers/blob/main/Detecting%20and%20Predicting%20Phanton%20Inventory%20Using%20Random%20Forests%20and%20LSTM.pdf",
+      videoUrl: "https://youtu.be/7GUXGPq7R1M?si=LGwkvx2sS20kO4N4",
     },
     {
       id: 3,
@@ -98,6 +96,7 @@ export default function Projects() {
       skills: ["Python NLP", "Azure Language AI", "Survey Analytics", "Generative AI"],
       githubUrl:
         "https://github.com/rohanajay/research-papers/blob/main/Enhancing%20Judicial%20Efficiency%20and%20Access%20to%20Justice%20Using%20AI.pdf",
+      videoUrl: "https://youtu.be/GTVDXvHmF60?si=R6MBoyhVLjJ0Zm1C",
     },
     {
       id: 4,
@@ -113,6 +112,7 @@ export default function Projects() {
       ],
       skills: ["LLM Evaluation", "Adversarial Testing", "Statistical Analysis", "AI Risk"],
       githubUrl: "https://github.com/rohanajay/research-papers/blob/main/Risk%20Benchmarking%20for%20LLMs.pdf",
+      videoUrl: "https://youtu.be/GLCanqHLmMo?si=073pcP2IxSBUFd4I",
     },
     {
       id: 5,
@@ -128,6 +128,7 @@ export default function Projects() {
       ],
       skills: ["Forecasting", "Predictive Modeling", "A/B Testing", "Data Visualization"],
       githubUrl: "https://github.com/rohanajay/research-papers/blob/main/Analytics_For_Loyalty_Campaigns.pdf",
+      videoUrl: "https://youtu.be/LTVhOPqcxeM?si=oDDKTQOMxu8cV1VF&t=21",
     },
     {
       id: 6,
@@ -143,6 +144,7 @@ export default function Projects() {
       ],
       skills: ["Python", "Web Development (HTML/CSS)", "Geospatial Analysis", "LLM Integration"],
       githubUrl: "https://github.com/rohanajay/research-papers/blob/main/Mapping_Path_to_translations.pdf",
+      videoUrl: "https://youtu.be/NL5knCowE5g?si=e9LVI9Py3vtgQ43n",
     },
   ]
 
@@ -163,7 +165,7 @@ export default function Projects() {
 
   return (
     <div>
-      <h2 className="section-heading">PROJECTS</h2>
+      <h2 className="section-heading text-center md:text-left">PROJECTS</h2>
 
       <motion.div
         variants={container}
@@ -174,40 +176,38 @@ export default function Projects() {
       >
         {projects.map((project) => (
           <motion.div key={project.id} variants={item}>
-            <Card
-              className="project-card h-full bg-secondary/50 hover:bg-secondary/70 transition-colors duration-300 flex flex-col"
-              onMouseEnter={() => handleMouseEnter(project.id)}
-              onMouseLeave={handleMouseLeave}
-            >
-              <CardContent className="p-6 flex flex-col flex-grow">
+            <Card className="project-card h-full bg-secondary/50 hover:bg-secondary/70 transition-colors duration-300 flex flex-col">
+              <CardContent className="p-4 sm:p-6 flex flex-col flex-grow">
                 <div className="flex items-start">
-                  <div className="mr-4 mt-1">{project.icon}</div>
-                  <div className="flex-1">
+                  <div className="mr-3 sm:mr-4 mt-1 flex-shrink-0">{project.icon}</div>
+                  <div className="flex-1 min-w-0">
                     <div className="flex justify-between items-start">
-                      <div>
-                        <h3 className="text-xl font-semibold">{project.title}</h3>
-                        <div className="flex items-center mt-2 text-sm text-muted-foreground">
-                          <Calendar className="h-4 w-4 mr-1" />
+                      <div className="pr-10 sm:pr-12">
+                        <h3 className="text-lg sm:text-xl font-semibold">{project.title}</h3>
+                        <div className="flex items-center mt-2 text-xs sm:text-sm text-muted-foreground">
+                          <Calendar className="h-3 w-3 sm:h-4 sm:w-4 mr-1" />
                           <span>{project.period}</span>
                         </div>
                       </div>
-                      <button
-                        className={`p-2 -m-2 cursor-pointer touch-manipulation z-30 rounded-full hover:bg-background/50 transition-colors focus:outline-none ${
-                          isClicked(project.id) ? "ring-2 ring-primary/50" : ""
-                        }`}
-                        onClick={(e) => toggleExpand(project.id, e)}
-                        aria-label={isExpanded(project.id) ? "Collapse" : "Expand"}
-                        type="button"
-                      >
-                        {isExpanded(project.id) ? (
-                          <ChevronUp className="h-6 w-6 text-primary" />
-                        ) : (
-                          <ChevronDown className="h-6 w-6 text-primary" />
-                        )}
-                      </button>
+                      <div className="absolute right-3 top-3">
+                        <button
+                          className={`w-8 h-8 flex items-center justify-center rounded-full hover:bg-background/50 transition-colors focus:outline-none ${
+                            isExpanded(project.id) ? "ring-2 ring-primary/50" : ""
+                          }`}
+                          onClick={(e) => toggleExpand(project.id, e)}
+                          aria-label={isExpanded(project.id) ? "Collapse" : "Expand"}
+                          type="button"
+                        >
+                          {isExpanded(project.id) ? (
+                            <ChevronUp className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
+                          ) : (
+                            <ChevronDown className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
+                          )}
+                        </button>
+                      </div>
                     </div>
 
-                    <p className="mt-2 text-muted-foreground">{project.summary}</p>
+                    <p className="mt-2 text-sm sm:text-base text-muted-foreground">{project.summary}</p>
 
                     <AnimatePresence>
                       {isExpanded(project.id) && (
@@ -218,18 +218,18 @@ export default function Projects() {
                           transition={{ duration: 0.3 }}
                           className="mt-4"
                         >
-                          <h4 className="font-semibold mb-2">Highlights:</h4>
+                          <h4 className="font-semibold mb-2 text-sm sm:text-base">Highlights:</h4>
                           <ul className="space-y-2 mb-4">
                             {project.highlights.map((highlight, idx) => (
                               <li key={idx} className="flex items-start">
-                                <span className="text-primary mr-2">•</span>
-                                <span>{highlight}</span>
+                                <span className="text-primary mr-2 flex-shrink-0">•</span>
+                                <span className="text-xs sm:text-sm">{highlight}</span>
                               </li>
                             ))}
                           </ul>
                           <div className="flex flex-wrap gap-2 mt-4">
                             {project.skills.map((skill, idx) => (
-                              <Badge key={idx} variant="secondary">
+                              <Badge key={idx} variant="secondary" className="text-xs">
                                 {skill}
                               </Badge>
                             ))}
@@ -240,16 +240,27 @@ export default function Projects() {
                   </div>
                 </div>
 
-                {/* View Paper Button - Always at the bottom */}
-                <div className="mt-auto pt-4">
+                {/* Action Buttons - Always at the bottom */}
+                <div className="mt-auto pt-4 grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <Button
-                    className="bg-primary/10 hover:bg-primary/20 text-primary border-none w-full"
+                    className="group border-2 border-primary bg-transparent hover:bg-primary/10 text-foreground w-full"
+                    onClick={(e) => openYouTubeVideo(project.videoUrl, e)}
+                  >
+                    <span className="flex items-center justify-center">
+                      <Youtube className="mr-2 h-4 w-4 text-primary" />
+                      Watch Video
+                      <Play className="ml-2 h-3 w-3 sm:h-3.5 sm:w-3.5 group-hover:translate-x-1 transition-transform text-primary" />
+                    </span>
+                  </Button>
+
+                  <Button
+                    className="bg-primary/10 hover:bg-primary/20 text-primary border-none w-full text-sm sm:text-base"
                     onClick={(e) => openGitHubPaper(project.githubUrl, e)}
                   >
                     <span className="flex items-center justify-center">
                       <Github className="mr-2 h-4 w-4" />
-                      View Research Paper
-                      <ExternalLink className="ml-2 h-3.5 w-3.5" />
+                      View Paper
+                      <ExternalLink className="ml-2 h-3 w-3 sm:h-3.5 sm:w-3.5" />
                     </span>
                   </Button>
                 </div>

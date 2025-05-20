@@ -69,7 +69,14 @@ html {
 }
 
 .section-heading {
-  @apply text-2xl font-bold mb-6 text-primary relative inline-block;
+  @apply text-2xl font-bold mb-6 text-primary relative inline-block mx-auto md:mx-0;
+  text-align: center;
+}
+
+@media (min-width: 768px) {
+  .section-heading {
+    text-align: left;
+  }
 }
 
 .section-heading::after {

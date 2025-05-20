@@ -63,7 +63,7 @@ export default function Hero() {
   }
 
   return (
-    <section className="min-h-screen flex flex-col justify-center pt-20 overflow-hidden relative">
+    <section className="min-h-screen flex flex-col justify-center pt-12 md:pt-20 overflow-hidden relative">
       {/* Document Viewer Modal for Resume */}
       <DocumentViewer
         open={resumeOpen}
@@ -82,9 +82,9 @@ export default function Hero() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5 }}
-          className="order-2 md:order-1 relative z-10"
+          className="order-2 md:order-1 relative z-10 text-center md:text-left px-4 md:px-0"
         >
-          <h1 className="text-4xl md:text-6xl font-bold mb-4 flex flex-wrap items-baseline">
+          <h1 className="text-4xl md:text-6xl font-bold mb-4 flex flex-wrap items-baseline justify-center md:justify-start">
             <div className="text-primary mr-3 min-h-[1.5em]">
               {rohanTyped ? (
                 "Rohan"
@@ -134,10 +134,10 @@ export default function Hero() {
             transition={{ duration: 0.8, delay: 0.2 }}
           >
             <h2 className="text-xl md:text-2xl text-muted-foreground mb-6">Data Scientist & AI Software Engineer</h2>
-            <p className="text-lg mb-8 max-w-lg">
+            <p className="text-lg mb-8 max-w-lg mx-auto md:mx-0">
               Passionate about leveraging AI and Data Science to solve complex business problems and drive innovation.
             </p>
-            <div className="grid grid-cols-2 gap-4 max-w-md">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-md mx-auto md:mx-0">
               <Button onClick={scrollToContact} className="group w-full h-12">
                 Contact Me
                 <Mail className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
@@ -179,11 +179,11 @@ export default function Hero() {
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.5, delay: 0.2 }}
-          className="order-1 md:order-2 flex justify-center"
+          className="order-1 md:order-2 flex justify-center mb-8 md:mb-0"
         >
           <div className="relative profile-container">
             {/* Main image - Updated with the actual profile picture */}
-            <div className="w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden border-4 border-primary/30 relative z-20">
+            <div className="w-56 h-56 sm:w-64 sm:h-64 md:w-80 md:h-80 rounded-full overflow-hidden border-4 border-primary/30 relative z-20">
               <img
                 src="/images/profile/rohan_hero_profile_picture.jpeg"
                 alt="Rohan Ajay"
@@ -209,7 +209,7 @@ export default function Hero() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: showContent ? 1 : 0, y: showContent ? 0 : 20 }}
         transition={{ duration: 0.5, delay: 2 }}
-        className="flex justify-center mt-16"
+        className="flex justify-center mt-8 md:mt-16"
       >
         <a
           href="#about"

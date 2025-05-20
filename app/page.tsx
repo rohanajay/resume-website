@@ -56,7 +56,7 @@ export default function Home() {
   return (
     <main ref={mainRef} className="min-h-screen bg-background">
       <Navbar />
-      <div className="container mx-auto px-4 py-8">
+      <div className="container mx-auto px-4 py-8 pt-16 md:pt-8">
         <Hero />
 
         <motion.section

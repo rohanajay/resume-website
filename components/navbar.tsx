@@ -172,7 +172,13 @@ export default function Navbar() {
           {/* Mobile Menu Button and Theme Toggle */}
           <div className="md:hidden flex items-center space-x-2">
             <ThemeToggle />
-            <Button variant="ghost" size="icon" onClick={toggleMenu} aria-label="Toggle menu">
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={toggleMenu}
+              aria-label="Toggle menu"
+              className="rounded-full bg-background/20 hover:bg-background/40"
+            >
               {isOpen ? <X size={24} /> : <Menu size={24} />}
             </Button>
           </div>
