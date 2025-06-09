@@ -26,9 +26,9 @@ export default function Experience() {
     {
       id: 1,
       company: "Care.com",
-      logo: "/images/logos/care_logo.jpeg",
+      logo: "/images/logos/care_logo.png",
       position: "Software Engineering Intern – Applied Artificial Intelligence",
-      location: "West Lafayette, IN (Remote)",
+      location: "Chicago, IL (Remote)",
       period: "May 2025 - Present",
       responsibilities: [
         "Collaborated with system architects to refine and extend the modular-monolithic Java Spring Boot architecture for Care Family Profiles, integrating Kafka event streams with Go adapters to improve service coordination and data propagation across modules",

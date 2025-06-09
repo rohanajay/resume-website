@@ -99,7 +99,7 @@ export default function Contact() {
     {
       icon: <MapPin className="h-6 w-6 text-primary" />,
       label: "Location",
-      value: "West Lafayette, IN",
+      value: "Chicago, IL",
     },
     {
       icon: <Phone className="h-6 w-6 text-primary" />,
@@ -109,7 +109,7 @@ export default function Contact() {
     {
       icon: <Mail className="h-6 w-6 text-primary" />,
       label: "Email",
-      value: "rajay@purdue.edu",
+      value: "ajayrohan0509@gmail.com",
     },
     {
       icon: <Linkedin className="h-6 w-6 text-primary" />,

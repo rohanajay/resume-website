@@ -1,7 +1,7 @@
 "use client"
 
-import { useEffect, useState, useRef } from "react"
-import { motion, AnimatePresence, useScroll } from "framer-motion"
+import { useEffect, useState } from "react"
+import { motion, AnimatePresence } from "framer-motion"
 import { ChevronUp } from "lucide-react"
 import Navbar from "@/components/navbar"
 import Hero from "@/components/hero"
@@ -17,8 +17,6 @@ import Footer from "@/components/footer"
 
 export default function Home() {
   const [showScrollTop, setShowScrollTop] = useState(false)
-  const { scrollY } = useScroll()
-  const mainRef = useRef<HTMLElement>(null)
 
   useEffect(() => {
     const handleScroll = () => {
@@ -40,112 +38,43 @@ export default function Home() {
     })
   }
 
-  // Improved section transition variants
-  const sectionVariants = {
-    hidden: { opacity: 0, y: 50 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.8,
-        ease: "easeOut",
-      },
-    },
-  }
-
   return (
-    <main ref={mainRef} className="min-h-screen bg-background">
+    <main className="min-h-screen bg-background">
       <Navbar />
       <div className="container mx-auto px-4 py-8 pt-16 md:pt-8">
         <Hero />
 
-        <motion.section
-          id="about"
-          className="py-16"
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.2 }}
-          variants={sectionVariants}
-        >
+        <section id="about" className="py-16">
           <AboutMe />
-        </motion.section>
+        </section>
 
-        <motion.section
-          id="experience"
-          className="py-16"
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.2 }}
-          variants={sectionVariants}
-        >
+        <section id="experience" className="py-16">
           <Experience />
-        </motion.section>
+        </section>
 
-        <motion.section
-          id="education"
-          className="py-16"
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.2 }}
-          variants={sectionVariants}
-        >
+        <section id="education" className="py-16">
           <Education />
-        </motion.section>
+        </section>
 
-        <motion.section
-          id="skills"
-          className="py-16"
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.2 }}
-          variants={sectionVariants}
-        >
+        <section id="skills" className="py-16">
           <Profile />
-        </motion.section>
+        </section>
 
-        <motion.section
-          id="certifications"
-          className="py-16"
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.2 }}
-          variants={sectionVariants}
-        >
+        <section id="certifications" className="py-16">
           <Certifications />
-        </motion.section>
+        </section>
 
-        <motion.section
-          id="projects"
-          className="py-16"
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.2 }}
-          variants={sectionVariants}
-        >
+        <section id="projects" className="py-16">
           <Projects />
-        </motion.section>
+        </section>
 
-        <motion.section
-          id="recognition"
-          className="py-16"
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.2 }}
-          variants={sectionVariants}
-        >
+        <section id="recognition" className="py-16">
           <Recognition />
-        </motion.section>
+        </section>
 
-        <motion.section
-          id="contact"
-          className="py-16"
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.2 }}
-          variants={sectionVariants}
-        >
+        <section id="contact" className="py-16">
           <Contact />
-        </motion.section>
+        </section>
       </div>
 
       <Footer />

@@ -6,7 +6,7 @@ export default function FormattedResume() {
       <div className="max-w-4xl mx-auto">
         <div className="text-center mb-6">
           <h1 className="text-2xl font-bold">ROHAN AJAY</h1>
-          <p>West Lafayette, IN | 765-430-4207 | rajay@purdue.edu | linkedin.com/in/rohanajay</p>
+          <p>Chicago, IL | 765-430-4207 | ajayrohan0509@gmail.com | linkedin.com/in/rohanajay</p>
         </div>
 
         <section className="mb-6">
@@ -31,7 +31,7 @@ export default function FormattedResume() {
 
         <section className="mb-6">
           <h2 className="text-xl font-bold border-b border-gray-300 mb-2">EDUCATION</h2>
-          <div>
+          <div className="mb-4">
             <div className="flex justify-between">
               <div className="font-bold">Purdue University, Daniels School of Business</div>
               <div>West Lafayette, IN</div>
@@ -39,6 +39,17 @@ export default function FormattedResume() {
             <div className="flex justify-between">
               <div className="italic">Master of Science in Business Analytics and Information Management</div>
               <div>August 2024 – July 2025</div>
+            </div>
+          </div>
+
+          <div>
+            <div className="flex justify-between">
+              <div className="font-bold">PES University, School of Engineering</div>
+              <div>Bengaluru, India</div>
+            </div>
+            <div className="flex justify-between">
+              <div className="italic">Bachelor of Technology in Electronics and Communications Engineering</div>
+              <div>August 2017 – August 2021</div>
             </div>
           </div>
         </section>
@@ -50,7 +61,7 @@ export default function FormattedResume() {
           <div className="mb-4">
             <div className="flex justify-between">
               <div className="font-bold">Care.com</div>
-              <div>West Lafayette, IN (Remote)</div>
+              <div>Chicago, IL (Remote)</div>
             </div>
             <div className="flex justify-between">
               <div className="italic">Software Engineering Intern – Applied Artificial Intelligence</div>
