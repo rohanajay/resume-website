@@ -1,0 +1,275 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 240 10% 3.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 240 10% 3.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 10% 3.9%;
+    --primary: 93 89% 43%; /* #71D40A */
+    --primary-foreground: 240 10% 3.9%;
+    --secondary: 240 4.8% 95.9%;
+    --secondary-foreground: 240 5.9% 10%;
+    --muted: 240 4.8% 95.9%;
+    --muted-foreground: 240 3.8% 46.1%;
+    --accent: 240 4.8% 95.9%;
+    --accent-foreground: 240 5.9% 10%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 240 5.9% 90%;
+    --input: 240 5.9% 90%;
+    --ring: 93 89% 43%; /* #71D40A */
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: 240 10% 3.9%;
+    --foreground: 0 0% 98%;
+    --card: 240 10% 3.9%;
+    --card-foreground: 0 0% 98%;
+    --popover: 240 10% 3.9%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 84 100% 59.8%; /* Keeping the fluorescent green for dark mode */
+    --primary-foreground: 240 10% 3.9%;
+    --secondary: 240 3.7% 15.9%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 240 3.7% 15.9%;
+    --muted-foreground: 240 5% 64.9%;
+    --accent: 240 3.7% 15.9%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 240 3.7% 15.9%;
+    --input: 240 3.7% 15.9%;
+    --ring: 84 100% 59.8%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+
+  /* Improve theme transition */
+  body {
+    transition: background-color 0.5s ease, color 0.5s ease;
+  }
+}
+
+/* Smooth scrolling for the entire page */
+html {
+  scroll-behavior: smooth;
+}
+
+.section-heading {
+  @apply text-2xl font-bold mb-6 text-primary relative inline-block mx-auto md:mx-0;
+  text-align: center;
+}
+
+@media (min-width: 768px) {
+  .section-heading {
+    text-align: left;
+  }
+}
+
+.section-heading::after {
+  content: "";
+  @apply absolute bottom-0 left-0 w-full h-0.5 bg-primary transform scale-x-0 transition-transform duration-300 origin-left;
+}
+
+.section-heading:hover::after {
+  @apply scale-x-100;
+}
+
+/* Updated nav-link styles for smoother transitions */
+.nav-link {
+  @apply relative;
+  transition: color 0.3s ease, font-weight 0.3s ease;
+}
+
+.nav-link::after {
+  content: "";
+  @apply absolute bottom-0 left-0 w-full h-0.5 bg-primary transform scale-x-0 transition-transform duration-300 origin-left;
+}
+
+.nav-link:hover::after {
+  @apply scale-x-100;
+}
+
+/* Improved nav indicator transitions */
+.nav-link .indicator {
+  transform-origin: left;
+  transition: transform 0.3s ease-in-out;
+}
+
+/* Prevent layout shift when font-weight changes */
+.nav-link {
+  font-variation-settings: "wght" 400;
+  transition: color 0.3s ease, font-variation-settings 0.3s ease;
+}
+
+.nav-link.active {
+  font-variation-settings: "wght" 600;
+}
+
+/* Mobile nav indicator transitions */
+.mobile-nav-link .indicator {
+  transform-origin: left;
+  transition: transform 0.3s ease-in-out;
+}
+
+/* Prevent layout shift when font-weight changes */
+.nav-link {
+  padding: 0.25rem 0;
+  display: inline-block;
+}
+
+.experience-card {
+  @apply relative overflow-hidden;
+}
+
+.experience-card::before {
+  content: "";
+  @apply absolute top-0 left-0 w-1 h-full bg-primary transform scale-y-0 transition-transform duration-300 origin-top;
+}
+
+.experience-card:hover::before {
+  @apply scale-y-100;
+}
+
+.project-card {
+  @apply transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg;
+}
+
+/* Enhanced profile picture glow animations */
+@keyframes glow-pulse-slow {
+  0% {
+    opacity: 0.4;
+    transform: scale(0.98);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.02);
+  }
+  100% {
+    opacity: 0.4;
+    transform: scale(0.98);
+  }
+}
+
+@keyframes glow-pulse-medium {
+  0% {
+    opacity: 0.5;
+    transform: scale(0.99);
+  }
+  50% {
+    opacity: 0.9;
+    transform: scale(1.01);
+  }
+  100% {
+    opacity: 0.5;
+    transform: scale(0.99);
+  }
+}
+
+@keyframes glow-pulse-fast {
+  0% {
+    opacity: 0.6;
+    transform: scale(0.995);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.005);
+  }
+  100% {
+    opacity: 0.6;
+    transform: scale(0.995);
+  }
+}
+
+@keyframes glow-pulse-beacon {
+  0% {
+    opacity: 0.7;
+    transform: scale(0.9);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+  100% {
+    opacity: 0.7;
+    transform: scale(0.9);
+  }
+}
+
+@keyframes hero-bg-pulse {
+  0% {
+    opacity: 0.1;
+    transform: scale(0.98);
+  }
+  50% {
+    opacity: 0.2;
+    transform: scale(1.02);
+  }
+  100% {
+    opacity: 0.1;
+    transform: scale(0.98);
+  }
+}
+
+.animate-pulse-slow {
+  animation: glow-pulse-slow 8s infinite ease-in-out;
+}
+
+.animate-pulse-medium {
+  animation: glow-pulse-medium 6s infinite ease-in-out;
+}
+
+.animate-pulse-fast {
+  animation: glow-pulse-fast 4s infinite ease-in-out;
+}
+
+.animate-pulse-beacon {
+  animation: glow-pulse-beacon 3s infinite ease-in-out;
+}
+
+.hero-glow-bg {
+  animation: hero-bg-pulse 10s infinite ease-in-out;
+}
+
+/* Typewriter cursor customization */
+.Typewriter__cursor {
+  font-weight: 100;
+  animation: blink 1s infinite;
+}
+
+@keyframes blink {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+/* Profile container */
+.profile-container {
+  isolation: isolate;
+  position: relative;
+  z-index: 10;
+}
+
+/* Improved section transitions */
+section {
+  transition: opacity 0.8s ease-in-out, transform 0.8s ease-in-out;
+}
